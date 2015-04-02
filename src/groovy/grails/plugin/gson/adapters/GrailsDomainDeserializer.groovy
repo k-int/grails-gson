@@ -1,11 +1,15 @@
 package grails.plugin.gson.adapters
 
 import java.lang.reflect.Type
+
 import com.google.gson.*
+
 import grails.util.GrailsNameUtils
 import groovy.transform.TupleConstructor
 import groovy.util.logging.Slf4j
+
 import org.codehaus.groovy.grails.commons.*
+
 import static org.codehaus.groovy.grails.web.binding.DataBindingUtils.bindObjectToDomainInstance
 
 /**

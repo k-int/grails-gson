@@ -7,6 +7,7 @@ import groovy.util.logging.Slf4j
 import org.apache.commons.beanutils.PropertyUtils
 import org.codehaus.groovy.grails.commons.*
 import org.codehaus.groovy.grails.commons.cfg.GrailsConfig
+import org.codehaus.groovy.grails.support.proxy.ProxyHandler
 import org.springframework.util.ReflectionUtils;
 
 @TupleConstructor
@@ -14,7 +15,7 @@ import org.springframework.util.ReflectionUtils;
 class GrailsDomainSerializer<T> implements JsonSerializer<T> {
 
 	final GrailsApplication grailsApplication
-	final proxyHandler
+	final ProxyHandler proxyHandler
 
 	private final Stack<GrailsDomainClassProperty> circularityStack = new Stack<GrailsDomainClassProperty>()
 
@@ -78,9 +79,12 @@ class GrailsDomainSerializer<T> implements JsonSerializer<T> {
 	}
 
 	private GrailsDomainClass getDomainClassFor(T instance) {
-    log.debug ("looking for domain class for ${instance} using ${instance.getClass().name}")
+    
+    T unwrapped = proxyHandler.unwrapIfProxy(instance)
+    
+    log.debug ("looking for domain class for ${instance} using ${unwrapped.getClass().name}")
 		// TODO: may need to cache this
-    grailsApplication.getArtefact("Domain", "${instance.getClass().name}")
+    grailsApplication.getArtefact("Domain", "${unwrapped.getClass().name}")
 	}
 
 	@Lazy
