@@ -5,7 +5,6 @@ import grails.plugin.gson.adapters.*
 import grails.plugin.gson.spring.GsonBuilderFactory
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
-import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.codehaus.groovy.grails.plugins.converters.ConvertersPluginSupport
 import spock.lang.*
 

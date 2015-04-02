@@ -1,40 +1,48 @@
-grails.project.work.dir = 'target'
-grails.project.class.dir = 'target/classes'
-grails.project.test.class.dir = 'target/test-classes'
-grails.project.test.reports.dir = 'target/test-reports'
-grails.project.target.level = 1.6
+grails.project.class.dir = "target/classes"
+grails.project.test.class.dir = "target/test-classes"
+grails.project.test.reports.dir = "target/test-reports"
 
+grails.project.fork = [
+    // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
+    //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+
+    // configure settings for the test-app JVM, uses the daemon by default
+    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    // configure settings for the run-app JVM
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    // configure settings for the run-war JVM
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    // configure settings for the Console UI JVM
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]
+
+grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
+  // inherit Grails' default dependencies
+  inherits("global") {
+      // uncomment to disable ehcache
+      // excludes 'ehcache'
+  }
+  log 'warn'
 
-    inherits 'global'
-    log 'warn'
+  repositories {
+    grailsCentral()
+    mavenCentral()
+    mavenLocal()
+  }
 
-    repositories {
-        grailsCentral()
-        mavenCentral()
-        mavenLocal()
+  dependencies {
+    compile 'commons-beanutils:commons-beanutils:1.9.2'
+    compile 'com.google.code.gson:gson:2.3.1'
+    test('joda-time:joda-time:2.2') {
+      export = false
     }
+  }
 
-    dependencies {
-        compile 'com.google.code.gson:gson:2.2.4'
-        test('joda-time:joda-time:2.2') {
-            export = false
-        }
-		test('org.spockframework:spock-grails-support:0.7-groovy-2.0') {
-			export = false
-		}
+  plugins {
+     build(":release:3.0.1",
+          ":rest-client-builder:1.0.3") {
+        export = false
     }
-
-    plugins {
-        build(':release:2.2.1', ':rest-client-builder:1.0.3') {
-            export = false
-        }
-        test(':spock:0.7') {
-            export = false
-			exclude 'spock-grails-support'
-        }
-    }
+  }
 }
-
-grails.project.repos.grailsCentral.username = System.getenv("GRAILS_CENTRAL_USERNAME")
-grails.project.repos.grailsCentral.password = System.getenv("GRAILS_CENTRAL_PASSWORD")

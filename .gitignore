@@ -15,3 +15,7 @@ target/
 
 # Generated artefacts
 /test/apps/gson-test/src/templates/scaffolding
+/bin/
+.project
+.settings
+.classpath
