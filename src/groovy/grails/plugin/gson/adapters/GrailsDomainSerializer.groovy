@@ -89,28 +89,22 @@ class GrailsDomainSerializer<T> implements JsonSerializer<T> {
 
 	@Lazy
 	private FieldNamingStrategy fieldNamingStrategy = {
-		def grailsConfig = new GrailsConfig(grailsApplication)
-		grailsConfig.get('grails.converters.gson.fieldNamingPolicy', FieldNamingStrategy) ?: FieldNamingPolicy.IDENTITY
+		grailsApplication.config.get('grails.converters.gson.fieldNamingPolicy', FieldNamingStrategy) ?: FieldNamingPolicy.IDENTITY
 	}()
 
 	private boolean shouldResolveProxy() {
-		config.get('grails.converters.gson.resolveProxies', true)
+		grailsApplication.config.get('grails.converters.gson.resolveProxies', true)
 	}
 
 	private boolean shouldSerializeProxy() {
-		config.get('grails.converters.gson.serializeProxies', true)
+		grailsApplication.config.get('grails.converters.gson.serializeProxies', true)
 	}
 
 	private boolean shouldOutputClass() {
-		config.get('grails.converters.gson.domain.include.class', config.get('grails.converters.domain.include.class', false))
+		grailsApplication.config.get('grails.converters.gson.domain.include.class', config.get('grails.converters.domain.include.class', false))
 	}
 
 	private boolean shouldOutputVersion() {
-		config.get('grails.converters.gson.domain.include.version', config.get('grails.converters.domain.include.version', false))
+		grailsApplication.config.get('grails.converters.gson.domain.include.version', config.get('grails.converters.domain.include.version', false))
 	}
-
-	private GrailsConfig getConfig() {
-		new GrailsConfig(grailsApplication)
-	}
-
 }
