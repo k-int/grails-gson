@@ -27,14 +27,26 @@ class GsonGrailsPlugin {
 
   def doWithSpring = {
     if (!manager?.hasGrailsPlugin('hibernate')) {
-      proxyHandler DefaultEntityProxyHandler
+      proxyHandler (DefaultEntityProxyHandler) { bean ->
+        bean.autowire = "byName"
+      } 
     }
 
-    proxyFacade ProxyHandlerFacade, ref('proxyHandler')
-    domainSerializer GrailsDomainSerializer, ref('grailsApplication'), ref('proxyFacade')
-    domainDeserializer GrailsDomainDeserializer, ref('grailsApplication')
-    gsonBuilder GsonBuilderFactory
-    jsonParsingParameterCreationListener GsonParsingParameterCreationListener, ref('gsonBuilder')
+    proxyFacade (ProxyHandlerFacade) { bean ->
+      bean.autowire = "byName"
+    } 
+    domainSerializer (GrailsDomainSerializer) { bean ->
+      bean.autowire = "byName"
+    }
+    domainDeserializer (GrailsDomainDeserializer) { bean ->
+      bean.autowire = "byName"
+    } 
+    gsonBuilder (GsonBuilderFactory) { bean ->
+      bean.autowire = "byName"
+    } 
+    jsonParsingParameterCreationListener (GsonParsingParameterCreationListener) { bean ->
+      bean.autowire = "byName"
+    } 
   }
 
   def doWithDynamicMethods = { ctx ->
