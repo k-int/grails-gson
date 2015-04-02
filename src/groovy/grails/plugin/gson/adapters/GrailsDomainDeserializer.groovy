@@ -107,7 +107,7 @@ class GrailsDomainDeserializer<T> implements JsonDeserializer<T> {
 
 	private GrailsDomainClass getDomainClassFor(Type type) {
 		// TODO: may need to cache this
-		grailsApplication.getDomainClass(type.name)
+		grailsApplication.getArtefact("Domain", "${type.name}")
 	}
 
 }
