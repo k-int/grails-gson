@@ -1,16 +1,14 @@
 package grails.plugin.gson.adapters
 
-import java.lang.reflect.Type
-
-import com.google.gson.*
-
+import static org.codehaus.groovy.grails.web.binding.DataBindingUtils.bindObjectToDomainInstance
 import grails.util.GrailsNameUtils
-import groovy.transform.TupleConstructor
 import groovy.util.logging.Slf4j
+
+import java.lang.reflect.Type
 
 import org.codehaus.groovy.grails.commons.*
 
-import static org.codehaus.groovy.grails.web.binding.DataBindingUtils.bindObjectToDomainInstance
+import com.google.gson.*
 
 /**
  * A _JsonDeserializer_ implementation that works on Grails domain objects.
@@ -20,13 +18,13 @@ import static org.codehaus.groovy.grails.web.binding.DataBindingUtils.bindObject
  * means you can deserialize a JSON HTTP request into a new domain instance or
  * an update to an existing one.
  */
-@TupleConstructor
 @Slf4j
 class GrailsDomainDeserializer<T> implements JsonDeserializer<T> {
 
+  
 	final GrailsApplication grailsApplication
 
-	T deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
+  T deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
 		def domainClass = getDomainClassFor(type)
 		def jsonObject = element.asJsonObject
 		T instance = getOrCreateInstance(jsonObject, domainClass, context)
@@ -111,7 +109,7 @@ class GrailsDomainDeserializer<T> implements JsonDeserializer<T> {
 
 	private GrailsDomainClass getDomainClassFor(Type type) {
 		// TODO: may need to cache this
-		grailsApplication.getArtefact("Domain", "${type.name}")
+		grailsApplication.getDomainClass("${type.name}")
 	}
 
 }

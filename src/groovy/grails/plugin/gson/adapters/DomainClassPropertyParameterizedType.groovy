@@ -1,8 +1,11 @@
 package grails.plugin.gson.adapters
 
-import java.lang.reflect.*
-import groovy.transform.TupleConstructor
-import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
+import groovy.transform.TupleConstructor;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty;
 
 /**
  * An implementation of `ParameterizedType` that uses information from a `GrailsDomainClassProperty`

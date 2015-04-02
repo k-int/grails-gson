@@ -7,11 +7,10 @@ import groovy.util.logging.Slf4j
 import org.codehaus.groovy.grails.web.converters.AbstractParsingParameterCreationListener
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
-@TupleConstructor(includeFields = true)
 @Slf4j
 class GsonParsingParameterCreationListener extends AbstractParsingParameterCreationListener {
 
-	private final GsonBuilder gsonBuilder
+	GsonBuilder gsonBuilder
 
 	@Override
 	void paramsCreated(GrailsParameterMap params) {

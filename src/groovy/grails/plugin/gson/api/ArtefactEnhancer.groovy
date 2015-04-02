@@ -24,7 +24,7 @@ class ArtefactEnhancer {
 	}
 
 	void enhanceControllers() {
-		for (controller in grailsApplication.getArtefacts("Controller")) {
+		for (controller in grailsApplication.getControllerClasses()) {
 			controller.metaClass.render = { GSON gson ->
 				gson.render delegate.response
 			}
@@ -32,7 +32,7 @@ class ArtefactEnhancer {
 	}
 
 	void enhanceDomains() {
-		for (domainClass in grailsApplication.getArtefacts("Domain")) {
+		for (domainClass in grailsApplication.getDomainClasses()) {
 			enhanceDomain domainClass
 		}
 	}

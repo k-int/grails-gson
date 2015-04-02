@@ -1,6 +1,5 @@
 package grails.plugin.gson.support.proxy
 
-import groovy.transform.TupleConstructor
 import org.codehaus.groovy.grails.support.proxy.EntityProxyHandler
 import org.grails.datastore.gorm.proxy.GroovyProxyFactory
 
@@ -8,12 +7,11 @@ import org.grails.datastore.gorm.proxy.GroovyProxyFactory
  * Supports proxies for hibernate as well as mongodb mapped domain instances.
  * As there may only be one active ProxyHandler bean defined this facade does not implement (Entity-)ProxyHandler.
  */
-@TupleConstructor
-class ProxyHandlerFacade {
+class ProxyHandlerFacade implements EntityProxyHandler{
 
-	final EntityProxyHandler proxyHandler
-	
-	protected GroovyProxyFactory proxyFactory = new GroovyProxyFactory()
+	EntityProxyHandler proxyHandler
+
+  protected GroovyProxyFactory proxyFactory = new GroovyProxyFactory()
 
 	Object getProxyIdentifier(Object o) {
 		if (isGroovyProxy(o))

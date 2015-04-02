@@ -22,11 +22,8 @@ class GsonBuilderFactory extends AbstractFactoryBean<GsonBuilder> implements App
 	GrailsApplication grailsApplication
 	ApplicationContext applicationContext
 	GrailsPluginManager pluginManager
-
-	@Autowired
-	final GrailsDomainSerializer domainSerializer
-	@Autowired
-	final GrailsDomainDeserializer domainDeserializer
+  GrailsDomainSerializer domainSerializer
+  GrailsDomainDeserializer domainDeserializer
 
 	@Override
 	Class<GsonBuilder> getObjectType() {
