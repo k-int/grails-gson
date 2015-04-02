@@ -78,6 +78,7 @@ class GrailsDomainSerializer<T> implements JsonSerializer<T> {
 	}
 
 	private GrailsDomainClass getDomainClassFor(T instance) {
+    log.debug ("looking for domain class for ${instance} using ${instance.getClass().name}")
 		// TODO: may need to cache this
     grailsApplication.getArtefact("Domain", "${instance.getClass().name}")
 	}
