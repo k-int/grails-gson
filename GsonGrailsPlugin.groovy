@@ -26,7 +26,7 @@ class GsonGrailsPlugin {
   def scm = [url: 'https://github.com/robfletcher/grails-gson']
 
   def doWithSpring = {
-    if (!(manager?.hasGrailsPlugin('hibernate') || manager?.hasGrailsPlugin('hibernate4')) {
+    if (!(manager?.hasGrailsPlugin('hibernate') || manager?.hasGrailsPlugin('hibernate4'))) {
       proxyHandler DefaultEntityProxyHandler
     }
     domainSerializer (GrailsDomainSerializer) {bean ->

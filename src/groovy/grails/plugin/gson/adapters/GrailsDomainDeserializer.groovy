@@ -22,7 +22,7 @@ import com.google.gson.*
 class GrailsDomainDeserializer<T> implements JsonDeserializer<T> {
 
   
-	final GrailsApplication grailsApplication
+	GrailsApplication grailsApplication
 
   T deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
 		def domainClass = getDomainClassFor(type)
@@ -47,6 +47,7 @@ class GrailsDomainDeserializer<T> implements JsonDeserializer<T> {
 		}
 		def properties = jsonEntries.collectEntries { property ->
 			def propertyType = getPropertyType(domainClass, property.key)
+      log.debug("Attempting to set ${property.key} of type ${propertyType} on ${domainClass} to ${property.value}")
 			[(property.key): context.deserialize(property.value, propertyType)]
 		}
 		bindObjectToDomainInstance domainClass, instance, properties
